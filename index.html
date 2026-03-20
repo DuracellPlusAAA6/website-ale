@@ -122,10 +122,7 @@
                              data-callback="onCaptchaDone"
                              data-theme="light"></div>
                     </div>
-                    <div id="email-reveal" class="email-reveal hidden">
-                        <i class="fas fa-envelope-open-text"></i>
-                        <a href="mailto:dr@vatamanelu.com" class="email-link">dr@vatamanelu.com</a>
-                    </div>
+                    <div id="email-reveal" class="email-reveal hidden"></div>
                 </div>
             </div>
         </section>
@@ -392,8 +389,16 @@ function showCaptcha() {
 
 // ── Cloudflare Turnstile callback ─────────────────────────────────────────────
 function onCaptchaDone() {
+    const u = ['d','r'].join('');
+    const d = ['v','a','t','a','m','a','n','e','l','u','.','c','o','m'].join('');
+    const email = u + '\u0040' + d;
+    const box = document.getElementById('email-reveal');
+    box.innerHTML = `
+        <i class="fas fa-envelope-open-text"></i>
+        <a href="mailto:${email}" class="email-link">${email}</a>
+    `;
     document.getElementById('captcha-wrapper').style.display = 'none';
-    document.getElementById('email-reveal').classList.remove('hidden');
+    box.classList.remove('hidden');
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
