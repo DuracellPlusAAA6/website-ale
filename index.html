@@ -158,7 +158,46 @@
             </div>
         </section>
 
+        <!-- ── Contact ───────────────────────────────────────────────────── -->
+        <section class="section alt-section" id="contact">
+            <div class="section-inner contact-inner">
+                <div class="section-header">
+                    <div class="section-icon"><i class="fas fa-envelope"></i></div>
+                    <h2 data-i18n="contactTitle"></h2>
+                </div>
+                <div class="contact-card">
+
+                    <!-- Step 1: button -->
+                    <div id="step-btn">
+                        <p class="contact-desc" data-i18n="contactDesc"></p>
+                        <button class="email-btn" onclick="showCaptcha()">
+                            <i class="fas fa-envelope"></i>
+                            <span data-i18n="revealBtn"></span>
+                        </button>
+                    </div>
+
+                    <!-- Step 2: reCAPTCHA -->
+                    <div id="step-captcha" class="hidden">
+                        <p class="contact-desc" data-i18n="contactHint"></p>
+                        <div class="g-recaptcha"
+                             data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                             data-callback="onCaptchaDone"
+                             data-theme="light"></div>
+                    </div>
+
+                    <!-- Step 3: email -->
+                    <div id="step-email" class="hidden">
+                        <i class="fas fa-envelope-open-text email-icon"></i>
+                        <a href="mailto:dr@vatamanelu.com" class="email-address">dr@vatamanelu.com</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
     </main>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <footer class="footer">
         <p>© 2026 Dr. Alexandra Vatamanelu</p>
@@ -176,6 +215,10 @@ const i18n = {
         eduTitle:    "Éducation & Formation",
         skillsTitle: "Compétences",
         langsTitle:  "Langues",
+        contactTitle:"Contact",
+        contactDesc: "Vous souhaitez me contacter ? Cliquez sur le bouton ci-dessous.",
+        contactHint: "Vérifiez que vous n'êtes pas un robot pour afficher mon adresse e-mail.",
+        revealBtn:   "Afficher mon adresse e-mail",
         currentLabel:"En cours",
         experience: [
             { title: "Interne en Oto-Rhino-Laryngologie",  institution: "Clinical Rehabilitation Hospital",                         location: "Iași, Roumanie", period: "Janv. 2023 – Oct. 2023",  current: false },
@@ -207,6 +250,10 @@ const i18n = {
         eduTitle:    "Education & Training",
         skillsTitle: "Skills",
         langsTitle:  "Languages",
+        contactTitle:"Contact",
+        contactDesc: "Want to get in touch? Click the button below.",
+        contactHint: "Please verify you are not a robot to reveal my email address.",
+        revealBtn:   "Show my email address",
         currentLabel:"Current",
         experience: [
             { title: "Intern in Otorhinolaryngology",  institution: "Clinical Rehabilitation Hospital",                  location: "Iași, Romania",    period: "Jan. 2023 – Oct. 2023",  current: false },
@@ -238,6 +285,10 @@ const i18n = {
         eduTitle:    "Educație & Formare",
         skillsTitle: "Competențe",
         langsTitle:  "Limbi Cunoscute",
+        contactTitle:"Contact",
+        contactDesc: "Doriți să mă contactați? Faceți clic pe butonul de mai jos.",
+        contactHint: "Verificați că nu sunteți un robot pentru a afișa adresa mea de e-mail.",
+        revealBtn:   "Afișați adresa mea de e-mail",
         currentLabel:"În curs",
         experience: [
             { title: "Rezident în Oto-Rino-Laringologie", institution: "Spitalul Clinic de Recuperare",                            location: "Iași, România", period: "Ian. 2023 – Oct. 2023",  current: false },
@@ -269,6 +320,10 @@ const i18n = {
         eduTitle:    "Educación & Formación",
         skillsTitle: "Competencias",
         langsTitle:  "Idiomas",
+        contactTitle:"Contacto",
+        contactDesc: "¿Desea ponerse en contacto? Haga clic en el botón de abajo.",
+        contactHint: "Por favor, verifique que no es un robot para mostrar mi dirección de correo electrónico.",
+        revealBtn:   "Mostrar mi dirección de correo electrónico",
         currentLabel:"En curso",
         experience: [
             { title: "Residente en Otorrinolaringología", institution: "Hospital Clínico de Rehabilitación",                       location: "Iași, Rumanía", period: "Ene. 2023 – Oct. 2023",  current: false },
@@ -300,6 +355,10 @@ const i18n = {
         eduTitle:    "Educação & Formação",
         skillsTitle: "Competências",
         langsTitle:  "Idiomas",
+        contactTitle:"Contato",
+        contactDesc: "Deseja entrar em contacto? Clique no botão abaixo.",
+        contactHint: "Por favor, verifique que não é um robô para revelar o meu endereço de e-mail.",
+        revealBtn:   "Mostrar o meu endereço de e-mail",
         currentLabel:"Em curso",
         experience: [
             { title: "Interna em Otorrinolaringologia", institution: "Hospital Clínico de Reabilitação",                          location: "Iași, Roménia",    period: "Jan. 2023 – Out. 2023",  current: false },
@@ -395,6 +454,17 @@ function setLang(lang) {
     renderEducation(lang);
     renderSkills(lang);
     renderLanguages(lang);
+}
+
+// ── Contact steps ─────────────────────────────────────────────────────────────
+function showCaptcha() {
+    document.getElementById('step-btn').classList.add('hidden');
+    document.getElementById('step-captcha').classList.remove('hidden');
+}
+
+function onCaptchaDone() {
+    document.getElementById('step-captcha').classList.add('hidden');
+    document.getElementById('step-email').classList.remove('hidden');
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────

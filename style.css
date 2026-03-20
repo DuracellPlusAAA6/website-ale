@@ -427,6 +427,76 @@ body {
     to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Contact ─────────────────────────────────────────────────────────────── */
+.contact-inner { max-width: 520px; }
+
+.contact-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 3rem 2.5rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+#step-btn,
+#step-captcha,
+#step-email {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-desc {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
+    line-height: 1.6;
+}
+
+.email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(15, 30, 56, 0.22);
+    transition: all 0.2s ease;
+    letter-spacing: 0.02em;
+}
+.email-btn i { color: var(--teal-mid); }
+.email-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(15, 30, 56, 0.32);
+    background: linear-gradient(135deg, var(--navy-light), var(--teal));
+}
+
+#step-captcha .contact-desc { margin-bottom: 1.5rem; }
+
+#step-email {
+    gap: 1rem;
+    animation: fadeUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.email-icon { font-size: 2.4rem; color: var(--accent); }
+
+.email-address {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 2px;
+    transition: color 0.2s ease;
+}
+.email-address:hover { color: var(--accent); }
+
 /* ── Footer ──────────────────────────────────────────────────────────────── */
 .footer {
     background: var(--navy-dark);
@@ -443,6 +513,7 @@ body {
     .hero-content     { padding: 3rem 1.25rem 4rem; }
     .edu-inner        { flex-direction: column; gap: 1.25rem; }
     .tl-meta          { gap: 0.6rem; }
+    .contact-card     { padding: 2rem 1.25rem; }
     .lang-bar         { padding: 0 1rem; justify-content: center; }
     .lang-btn         { padding: 5px 12px; font-size: 12px; }
     .section-header   { gap: 0.8rem; }
