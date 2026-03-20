@@ -168,19 +168,32 @@
                     <div class="section-icon"><i class="fas fa-envelope"></i></div>
                     <h2 data-i18n="contactTitle"></h2>
                 </div>
-                <div class="contact-box">
-                    <div id="reveal-btn-wrapper">
-                        <button class="reveal-btn" onclick="showCaptcha()" data-i18n="revealBtn"></button>
+                <div class="contact-card">
+
+                    <!-- Step 1: button -->
+                    <div id="step-btn">
+                        <p class="contact-desc" data-i18n="contactDesc"></p>
+                        <button class="email-btn" onclick="showCaptcha()">
+                            <i class="fas fa-envelope"></i>
+                            <span data-i18n="revealBtn"></span>
+                        </button>
                     </div>
-                    <div id="captcha-wrapper" class="hidden">
-                        <p class="contact-hint" data-i18n="contactHint"></p>
-                        <!-- Turnstile test sitekey – always passes. Swap for your real key in production. -->
+
+                    <!-- Step 2: captcha -->
+                    <div id="step-captcha" class="hidden">
+                        <p class="contact-desc" data-i18n="contactHint"></p>
                         <div class="cf-turnstile"
                              data-sitekey="1x00000000000000000000AA"
                              data-callback="onCaptchaDone"
                              data-theme="light"></div>
                     </div>
-                    <div id="email-reveal" class="email-reveal hidden"></div>
+
+                    <!-- Step 3: email -->
+                    <div id="step-email" class="hidden">
+                        <i class="fas fa-envelope-open-text email-icon"></i>
+                        <a id="email-link" href="#" class="email-address"></a>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -204,6 +217,7 @@ const i18n = {
         skillsTitle: "Compétences",
         langsTitle:  "Langues",
         contactTitle:"Contact",
+        contactDesc: "Vous souhaitez me contacter ? Cliquez sur le bouton ci-dessous.",
         contactHint: "Vérifiez que vous n'êtes pas un robot pour afficher mon adresse e-mail.",
         revealBtn:   "Afficher mon adresse e-mail",
         currentLabel:"En cours",
@@ -238,6 +252,7 @@ const i18n = {
         skillsTitle: "Skills",
         langsTitle:  "Languages",
         contactTitle:"Contact",
+        contactDesc: "Want to get in touch? Click the button below.",
         contactHint: "Please verify you are not a robot to reveal my email address.",
         revealBtn:   "Show my email address",
         currentLabel:"Current",
@@ -272,6 +287,7 @@ const i18n = {
         skillsTitle: "Competențe",
         langsTitle:  "Limbi Cunoscute",
         contactTitle:"Contact",
+        contactDesc: "Doriți să mă contactați? Faceți clic pe butonul de mai jos.",
         contactHint: "Verificați că nu sunteți un robot pentru a afișa adresa mea de e-mail.",
         revealBtn:   "Afișați adresa mea de e-mail",
         currentLabel:"În curs",
@@ -306,6 +322,7 @@ const i18n = {
         skillsTitle: "Competencias",
         langsTitle:  "Idiomas",
         contactTitle:"Contacto",
+        contactDesc: "¿Desea ponerse en contacto? Haga clic en el botón de abajo.",
         contactHint: "Por favor, verifique que no es un robot para mostrar mi dirección de correo electrónico.",
         revealBtn:   "Mostrar mi dirección de correo electrónico",
         currentLabel:"En curso",
@@ -340,6 +357,7 @@ const i18n = {
         skillsTitle: "Competências",
         langsTitle:  "Idiomas",
         contactTitle:"Contato",
+        contactDesc: "Deseja entrar em contacto? Clique no botão abaixo.",
         contactHint: "Por favor, verifique que não é um robô para revelar o meu endereço de e-mail.",
         revealBtn:   "Mostrar o meu endereço de e-mail",
         currentLabel:"Em curso",
@@ -439,24 +457,19 @@ function setLang(lang) {
     renderLanguages(lang);
 }
 
-// ── Show captcha after button click ───────────────────────────────────────────
+// ── Contact steps ─────────────────────────────────────────────────────────────
 function showCaptcha() {
-    document.getElementById('reveal-btn-wrapper').style.display = 'none';
-    document.getElementById('captcha-wrapper').classList.remove('hidden');
+    document.getElementById('step-btn').classList.add('hidden');
+    document.getElementById('step-captcha').classList.remove('hidden');
 }
 
-// ── Cloudflare Turnstile callback ─────────────────────────────────────────────
 function onCaptchaDone() {
-    const u = ['d','r'].join('');
-    const d = ['v','a','t','a','m','a','n','e','l','u','.','c','o','m'].join('');
-    const email = u + '\u0040' + d;
-    const box = document.getElementById('email-reveal');
-    box.innerHTML = `
-        <i class="fas fa-envelope-open-text"></i>
-        <a href="mailto:${email}" class="email-link">${email}</a>
-    `;
-    document.getElementById('captcha-wrapper').style.display = 'none';
-    box.classList.remove('hidden');
+    const email = ['dr', 'vatamanelu.com'].join('\u0040');
+    const link = document.getElementById('email-link');
+    link.href = 'mailto:' + email;
+    link.textContent = email;
+    document.getElementById('step-captcha').classList.add('hidden');
+    document.getElementById('step-email').classList.remove('hidden');
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
