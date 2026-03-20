@@ -9,8 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <!-- reCAPTCHA v2 – replace data-sitekey with your own key from https://www.google.com/recaptcha/admin -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- Cloudflare Turnstile – test key (always passes). Register your domain at
+         https://dash.cloudflare.com/?to=/:account/turnstile and replace the sitekey. -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -27,6 +28,13 @@
     <!-- ── Hero ──────────────────────────────────────────────────────────── -->
     <header class="hero">
         <div class="hero-content">
+            <div class="hero-photo-wrap">
+                <img
+                    src="signal-2026-03-20-130747_002.jpeg"
+                    alt="Dr. Alexandra Vatamanelu"
+                    class="hero-photo"
+                >
+            </div>
             <div class="hero-badge" data-i18n="badge"></div>
             <h1 class="hero-name">Dr. Alexandra Vatamanelu</h1>
             <p class="hero-location">
@@ -103,10 +111,11 @@
                 <div class="contact-box">
                     <div id="captcha-wrapper">
                         <p class="contact-hint" data-i18n="contactHint"></p>
-                        <!-- Test key – always passes. Replace with production key for deployment. -->
-                        <div class="g-recaptcha"
-                             data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MFLndUd3"
-                             data-callback="onCaptchaDone"></div>
+                        <!-- Turnstile test sitekey – always passes. Swap for your real key in production. -->
+                        <div class="cf-turnstile"
+                             data-sitekey="1x00000000000000000000AA"
+                             data-callback="onCaptchaDone"
+                             data-theme="light"></div>
                     </div>
                     <div id="email-reveal" class="email-reveal hidden">
                         <i class="fas fa-envelope-open-text"></i>
@@ -328,7 +337,7 @@ function setLang(lang) {
     renderLanguages(lang);
 }
 
-// ── reCAPTCHA callback ────────────────────────────────────────────────────────
+// ── Cloudflare Turnstile callback ─────────────────────────────────────────────
 function onCaptchaDone() {
     document.getElementById('captcha-wrapper').style.display = 'none';
     document.getElementById('email-reveal').classList.remove('hidden');
