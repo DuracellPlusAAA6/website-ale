@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
     <!-- Cloudflare Turnstile – test key (always passes). Register your domain at
          https://dash.cloudflare.com/?to=/:account/turnstile and replace the sitekey. -->
@@ -22,6 +23,7 @@
             <button class="lang-btn" data-lang="en" onclick="setLang('en')">English</button>
             <button class="lang-btn" data-lang="ro" onclick="setLang('ro')">Română</button>
             <button class="lang-btn" data-lang="es" onclick="setLang('es')">Español</button>
+            <button class="lang-btn" data-lang="pt" onclick="setLang('pt')">Português</button>
         </div>
     </div>
 
@@ -109,7 +111,10 @@
                     <h2 data-i18n="contactTitle"></h2>
                 </div>
                 <div class="contact-box">
-                    <div id="captcha-wrapper">
+                    <div id="reveal-btn-wrapper">
+                        <button class="reveal-btn" onclick="showCaptcha()" data-i18n="revealBtn"></button>
+                    </div>
+                    <div id="captcha-wrapper" class="hidden">
                         <p class="contact-hint" data-i18n="contactHint"></p>
                         <!-- Turnstile test sitekey – always passes. Swap for your real key in production. -->
                         <div class="cf-turnstile"
@@ -145,6 +150,7 @@ const i18n = {
         langsTitle:  "Langues",
         contactTitle:"Contact",
         contactHint: "Vérifiez que vous n'êtes pas un robot pour afficher mon adresse e-mail.",
+        revealBtn:   "Afficher mon adresse e-mail",
         currentLabel:"En cours",
         experience: [
             { title: "Interne en Oto-Rhino-Laryngologie",  institution: "Clinical Rehabilitation Hospital",                         location: "Iași, Roumanie", period: "Janv. 2023 – Oct. 2023",  current: false },
@@ -160,10 +166,11 @@ const i18n = {
         },
         skills: ["Empathie", "Communication", "Coopération", "Sens des responsabilités", "Organisation & priorisation"],
         languages: [
-            { name: "Roumain",  level: "Langue maternelle", pct: 100, flag: "🇷🇴" },
-            { name: "Français", level: "Courant",            pct: 90,  flag: "🇫🇷" },
-            { name: "Anglais",  level: "Courant",            pct: 88,  flag: "🇬🇧" },
-            { name: "Espagnol", level: "Intermédiaire",      pct: 60,  flag: "🇪🇸" }
+            { name: "Roumain",    level: "Langue maternelle", pct: 100, flag: "🇷🇴" },
+            { name: "Français",   level: "Courant",            pct: 90,  flag: "🇫🇷" },
+            { name: "Anglais",    level: "Courant",            pct: 88,  flag: "🇬🇧" },
+            { name: "Espagnol",   level: "Intermédiaire",      pct: 60,  flag: "🇪🇸" },
+            { name: "Portugais",  level: "Intermédiaire",      pct: 55,  flag: "🇵🇹" }
         ]
     },
     en: {
@@ -177,6 +184,7 @@ const i18n = {
         langsTitle:  "Languages",
         contactTitle:"Contact",
         contactHint: "Please verify you are not a robot to reveal my email address.",
+        revealBtn:   "Show my email address",
         currentLabel:"Current",
         experience: [
             { title: "Intern in Otorhinolaryngology",  institution: "Clinical Rehabilitation Hospital",                  location: "Iași, Romania",    period: "Jan. 2023 – Oct. 2023",  current: false },
@@ -192,10 +200,11 @@ const i18n = {
         },
         skills: ["Empathy", "Communication", "Teamwork", "Sense of responsibility", "Task prioritisation"],
         languages: [
-            { name: "Romanian", level: "Native",        pct: 100, flag: "🇷🇴" },
-            { name: "French",   level: "Fluent",         pct: 90,  flag: "🇫🇷" },
-            { name: "English",  level: "Fluent",         pct: 88,  flag: "🇬🇧" },
-            { name: "Spanish",  level: "Intermediate",   pct: 60,  flag: "🇪🇸" }
+            { name: "Romanian",   level: "Native",        pct: 100, flag: "🇷🇴" },
+            { name: "French",     level: "Fluent",         pct: 90,  flag: "🇫🇷" },
+            { name: "English",    level: "Fluent",         pct: 88,  flag: "🇬🇧" },
+            { name: "Spanish",    level: "Intermediate",   pct: 60,  flag: "🇪🇸" },
+            { name: "Portuguese", level: "Intermediate",   pct: 55,  flag: "🇵🇹" }
         ]
     },
     ro: {
@@ -209,6 +218,7 @@ const i18n = {
         langsTitle:  "Limbi Cunoscute",
         contactTitle:"Contact",
         contactHint: "Verificați că nu sunteți un robot pentru a afișa adresa mea de e-mail.",
+        revealBtn:   "Afișați adresa mea de e-mail",
         currentLabel:"În curs",
         experience: [
             { title: "Rezident în Oto-Rino-Laringologie", institution: "Spitalul Clinic de Recuperare",                            location: "Iași, România", period: "Ian. 2023 – Oct. 2023",  current: false },
@@ -224,10 +234,11 @@ const i18n = {
         },
         skills: ["Empatie", "Comunicare", "Lucru în echipă", "Simțul responsabilității", "Organizare & prioritizare"],
         languages: [
-            { name: "Română",   level: "Limbă maternă", pct: 100, flag: "🇷🇴" },
-            { name: "Franceză", level: "Avansat",        pct: 90,  flag: "🇫🇷" },
-            { name: "Engleză",  level: "Avansat",        pct: 88,  flag: "🇬🇧" },
-            { name: "Spaniolă", level: "Intermediar",    pct: 60,  flag: "🇪🇸" }
+            { name: "Română",      level: "Limbă maternă", pct: 100, flag: "🇷🇴" },
+            { name: "Franceză",    level: "Avansat",        pct: 90,  flag: "🇫🇷" },
+            { name: "Engleză",     level: "Avansat",        pct: 88,  flag: "🇬🇧" },
+            { name: "Spaniolă",    level: "Intermediar",    pct: 60,  flag: "🇪🇸" },
+            { name: "Portugheză",  level: "Intermediar",    pct: 55,  flag: "🇵🇹" }
         ]
     },
     es: {
@@ -241,6 +252,7 @@ const i18n = {
         langsTitle:  "Idiomas",
         contactTitle:"Contacto",
         contactHint: "Por favor, verifique que no es un robot para mostrar mi dirección de correo electrónico.",
+        revealBtn:   "Mostrar mi dirección de correo electrónico",
         currentLabel:"En curso",
         experience: [
             { title: "Residente en Otorrinolaringología", institution: "Hospital Clínico de Rehabilitación",                       location: "Iași, Rumanía", period: "Ene. 2023 – Oct. 2023",  current: false },
@@ -256,10 +268,45 @@ const i18n = {
         },
         skills: ["Empatía", "Comunicación", "Trabajo en equipo", "Sentido de la responsabilidad", "Organización & priorización"],
         languages: [
-            { name: "Rumano",  level: "Lengua materna", pct: 100, flag: "🇷🇴" },
-            { name: "Francés", level: "Avanzado",        pct: 90,  flag: "🇫🇷" },
-            { name: "Inglés",  level: "Avanzado",        pct: 88,  flag: "🇬🇧" },
-            { name: "Español", level: "Intermedio",      pct: 60,  flag: "🇪🇸" }
+            { name: "Rumano",    level: "Lengua materna", pct: 100, flag: "🇷🇴" },
+            { name: "Francés",   level: "Avanzado",        pct: 90,  flag: "🇫🇷" },
+            { name: "Inglés",    level: "Avanzado",        pct: 88,  flag: "🇬🇧" },
+            { name: "Español",   level: "Intermedio",      pct: 60,  flag: "🇪🇸" },
+            { name: "Portugués", level: "Intermedio",      pct: 55,  flag: "🇵🇹" }
+        ]
+    },
+    pt: {
+        badge:       "Médica Interna · Neurologia",
+        location:    "Nîmes, França",
+        whyTitle:    "Por que a Neurologia?",
+        whyText:     "A neurologia sempre me fascinou pela sua complexidade única, na encruzilhada entre a ciência e a humanidade. O cérebro é o órgão que nos define — a nossa personalidade, emoções e memórias. Tratar as suas doenças representa para mim o maior desafio médico, combinando rigor diagnóstico, escuta profunda e curiosidade científica constante. Esta capacidade de explorar o infinitamente complexo enquanto acompanhamos os doentes em momentos muitas vezes muito difíceis foi o que me convenceu a dedicar a minha carreira à neurologia.",
+        expTitle:    "Experiência Profissional",
+        eduTitle:    "Educação & Formação",
+        skillsTitle: "Competências",
+        langsTitle:  "Idiomas",
+        contactTitle:"Contato",
+        contactHint: "Por favor, verifique que não é um robô para revelar o meu endereço de e-mail.",
+        revealBtn:   "Mostrar o meu endereço de e-mail",
+        currentLabel:"Em curso",
+        experience: [
+            { title: "Interna em Otorrinolaringologia", institution: "Hospital Clínico de Reabilitação",                          location: "Iași, Roménia",    period: "Jan. 2023 – Out. 2023",  current: false },
+            { title: "Interna em Neurologia Geral",     institution: "Centro Hospitalar de Perpignan",                            location: "Perpignan, França", period: "Nov. 2023 – Jun. 2024",  current: false },
+            { title: "Interna em Neurologia Geral",     institution: "Hospital Clínico de Urgências Prof. Dr. N. Oblu",           location: "Iași, Roménia",    period: "Jul. 2024 – Out. 2025",  current: false },
+            { title: "Interna em Neurologia Geral",     institution: "CHU de Nîmes",                                              location: "Nîmes, França",    period: "Nov. 2025 – Em curso",   current: true  }
+        ],
+        education: {
+            degree: "Doutora em Medicina",
+            institution: "Universidade de Medicina e Farmácia Grigore T. Popa",
+            location: "Iași, Roménia",
+            period: "Out. 2016 – Jun. 2022"
+        },
+        skills: ["Empatia", "Comunicação", "Trabalho em equipa", "Sentido de responsabilidade", "Organização & priorização"],
+        languages: [
+            { name: "Romeno",    level: "Língua materna", pct: 100, flag: "🇷🇴" },
+            { name: "Francês",   level: "Avançado",        pct: 90,  flag: "🇫🇷" },
+            { name: "Inglês",    level: "Avançado",        pct: 88,  flag: "🇬🇧" },
+            { name: "Espanhol",  level: "Intermédio",      pct: 60,  flag: "🇪🇸" },
+            { name: "Português", level: "Intermédio",      pct: 55,  flag: "🇵🇹" }
         ]
     }
 };
@@ -335,6 +382,12 @@ function setLang(lang) {
     renderEducation(lang);
     renderSkills(lang);
     renderLanguages(lang);
+}
+
+// ── Show captcha after button click ───────────────────────────────────────────
+function showCaptcha() {
+    document.getElementById('reveal-btn-wrapper').style.display = 'none';
+    document.getElementById('captcha-wrapper').classList.remove('hidden');
 }
 
 // ── Cloudflare Turnstile callback ─────────────────────────────────────────────

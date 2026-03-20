@@ -438,6 +438,36 @@ body {
 }
 .cf-turnstile { display: flex; justify-content: center; }
 
+.reveal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 30px;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(15, 30, 56, 0.22);
+    transition: all 0.2s ease;
+    letter-spacing: 0.02em;
+}
+.reveal-btn::before {
+    content: '\f0e0';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.9rem;
+    color: var(--teal-mid);
+}
+.reveal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(15, 30, 56, 0.32);
+    background: linear-gradient(135deg, var(--navy-light), var(--teal));
+}
+
 .email-reveal {
     display: flex; flex-direction: column; align-items: center; gap: 1rem;
     padding: 0.75rem;
