@@ -176,13 +176,9 @@
                         </button>
                     </div>
 
-                    <!-- Step 2: reCAPTCHA -->
+                    <!-- Step 2: verifying -->
                     <div id="step-captcha" class="hidden">
                         <p class="contact-desc" data-i18n="contactHint"></p>
-                        <div class="g-recaptcha"
-                             data-sitekey="6Ldm-ZEsAAAAAN8S1RGVUYccCf4PAAxvO2_KGmHX"
-                             data-callback="onCaptchaDone"
-                             data-theme="light"></div>
                     </div>
 
                     <!-- Step 3: email -->
@@ -197,7 +193,7 @@
 
     </main>
 
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Ldm-ZEsAAAAAN8S1RGVUYccCf4PAAxvO2_KGmHX"></script>
 
     <footer class="footer">
         <p>© 2026 Dr. Alexandra Vatamanelu</p>
@@ -217,7 +213,7 @@ const i18n = {
         langsTitle:  "Langues",
         contactTitle:"Contact",
         contactDesc: "Vous souhaitez me contacter ? Cliquez sur le bouton ci-dessous.",
-        contactHint: "Vérifiez que vous n'êtes pas un robot pour afficher mon adresse e-mail.",
+        contactHint: "Vérification en cours…",
         revealBtn:   "Afficher mon adresse e-mail",
         currentLabel:"En cours",
         experience: [
@@ -252,7 +248,7 @@ const i18n = {
         langsTitle:  "Languages",
         contactTitle:"Contact",
         contactDesc: "Want to get in touch? Click the button below.",
-        contactHint: "Please verify you are not a robot to reveal my email address.",
+        contactHint: "Verifying…",
         revealBtn:   "Show my email address",
         currentLabel:"Current",
         experience: [
@@ -287,7 +283,7 @@ const i18n = {
         langsTitle:  "Limbi Cunoscute",
         contactTitle:"Contact",
         contactDesc: "Doriți să mă contactați? Faceți clic pe butonul de mai jos.",
-        contactHint: "Verificați că nu sunteți un robot pentru a afișa adresa mea de e-mail.",
+        contactHint: "Se verifică…",
         revealBtn:   "Afișați adresa mea de e-mail",
         currentLabel:"În curs",
         experience: [
@@ -322,7 +318,7 @@ const i18n = {
         langsTitle:  "Idiomas",
         contactTitle:"Contacto",
         contactDesc: "¿Desea ponerse en contacto? Haga clic en el botón de abajo.",
-        contactHint: "Por favor, verifique que no es un robot para mostrar mi dirección de correo electrónico.",
+        contactHint: "Verificando…",
         revealBtn:   "Mostrar mi dirección de correo electrónico",
         currentLabel:"En curso",
         experience: [
@@ -357,7 +353,7 @@ const i18n = {
         langsTitle:  "Idiomas",
         contactTitle:"Contato",
         contactDesc: "Deseja entrar em contacto? Clique no botão abaixo.",
-        contactHint: "Por favor, verifique que não é um robô para revelar o meu endereço de e-mail.",
+        contactHint: "A verificar…",
         revealBtn:   "Mostrar o meu endereço de e-mail",
         currentLabel:"Em curso",
         experience: [
@@ -457,14 +453,17 @@ function setLang(lang) {
 }
 
 // ── Contact steps ─────────────────────────────────────────────────────────────
+const RECAPTCHA_KEY = '6Ldm-ZEsAAAAAN8S1RGVUYccCf4PAAxvO2_KGmHX';
+
 function showCaptcha() {
     document.getElementById('step-btn').classList.add('hidden');
     document.getElementById('step-captcha').classList.remove('hidden');
-}
-
-function onCaptchaDone() {
-    document.getElementById('step-captcha').classList.add('hidden');
-    document.getElementById('step-email').classList.remove('hidden');
+    grecaptcha.ready(function() {
+        grecaptcha.execute(RECAPTCHA_KEY, { action: 'contact' }).then(function() {
+            document.getElementById('step-captcha').classList.add('hidden');
+            document.getElementById('step-email').classList.remove('hidden');
+        });
+    });
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────────
